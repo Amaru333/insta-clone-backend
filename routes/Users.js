@@ -53,6 +53,19 @@ router.post("/login", async (req, res) => {
   });
 });
 
+router.get("/details/:id", async (req, res) => {
+  console.log(req.params.id);
+  const user = await Users.findOne({ where: { id: req.params.id } });
+
+  res.json({
+    id: user.id,
+    email: user.email,
+    fullName: user.fullName,
+    username: user.username,
+    profile_image: user.profile_image,
+  });
+});
+
 router.get("/auth", validateToken, (req, res) => {
   res.json(req.user);
 });
